@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/next-locale/next-locale/compare/v1.4.0...v1.5.0) (2020-10-10)
+
+### Features
+
+- 🎸 ini i18n cli ([3f4bc1b](https://github.com/next-locale/next-locale/commit/3f4bc1b6358a3c79d5070ff55c0c6fe4d109410a))
+
 # [1.4.0](https://github.com/next-locale/next-locale/compare/v1.3.0...v1.4.0) (2020-10-10)
 
 ### Features
