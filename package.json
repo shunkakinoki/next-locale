@@ -12,7 +12,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.js",
   "bin": {
-    "next-locale": "./dist/cli.js"
+    "next-locale": "./dist/cli"
   },
   "files": [
     "dist"
