@@ -1,3 +1,13 @@
+# [1.1.0](https://github.com/next-locale/next-locale/compare/v1.0.0...v1.1.0) (2020-10-10)
+
+### Features
+
+- 🎸 ini example project ([05420b0](https://github.com/next-locale/next-locale/commit/05420b07e0d26bd34d85a949dcbe31e5d0b39e82))
+
+### Performance Improvements
+
+- ⚡️ ini typescript modifications ([9ef2f85](https://github.com/next-locale/next-locale/commit/9ef2f85ce344b55df97b774bc61fef95bb41687b))
+
 # 1.0.0 (2020-10-10)
 
 ### Features
