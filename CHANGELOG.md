@@ -1,3 +1,13 @@
+# [1.4.0](https://github.com/next-locale/next-locale/compare/v1.3.0...v1.4.0) (2020-10-10)
+
+### Features
+
+- 🎸 ini bin cli ([4a58b5f](https://github.com/next-locale/next-locale/commit/4a58b5f68f6a74ccf4ea8c72784dd78cabe45cb9))
+
+### Performance Improvements
+
+- ⚡️ ini webpack cli ([49f719c](https://github.com/next-locale/next-locale/commit/49f719cebf868b528761dbb2c1a5c47680e0d70c))
+
 # [1.3.0](https://github.com/next-locale/next-locale/compare/v1.2.0...v1.3.0) (2020-10-10)
 
 ### Features
