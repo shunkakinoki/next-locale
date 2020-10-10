@@ -1,0 +1,15 @@
+{
+  "name": "next-locale",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "@types/react": "^16.9.51",
+    "next": "^9.5.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
