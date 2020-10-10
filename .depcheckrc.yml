@@ -1,3 +1,11 @@
-ignores: ["@semantic-release/*", "commitizen", "git-cz", "next", "typescript"]
+ignores:
+  [
+    "@semantic-release/*",
+    "commitizen",
+    "git-cz",
+    "next",
+    "typescript",
+    "webpack-cli",
+  ]
 ignore-path: .gitignore
 skip-missing: true
