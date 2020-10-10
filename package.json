@@ -11,12 +11,12 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.js",
-  "files": [
-    "dist"
-  ],
   "bin": {
     "next-locale": "./dist/cli.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "check": "yarn run depcheck && yarn run lint && yarn run release:check",
     "clean": "yarn run clean:dist && yarn run clean:tsbuildinfo",
