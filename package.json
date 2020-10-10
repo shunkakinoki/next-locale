@@ -16,6 +16,9 @@
   ],
   "scripts": {
     "check": "yarn run depcheck && yarn run lint && yarn run release:check",
+    "clean": "yarn run clean:dist && yarn run clean:tsbuildinfo",
+    "clean:dist": "rimraf dist",
+    "clean:tsbuildinfo": "rimraf tsconfig*tsbuildinfo",
     "fix": "yarn run jsonsort:fix && yarn run sort-package-json:fix && yarn run prettier:fix",
     "jsonsort:check": "jsonsort .prettierrc.json .releaserc.json tsconfig.json -a -c",
     "jsonsort:fix": "jsonsort .pretterrc.json .releaserc.json tsconfig.json -a",
@@ -27,7 +30,10 @@
     "release": "semantic-release",
     "release:check": "semantic-release -d",
     "sort-package-json:check": "sort-package-json 'package.json' --check",
-    "sort-package-json:fix": "sort-package-json 'package.json'"
+    "sort-package-json:fix": "sort-package-json 'package.json'",
+    "tsc": "tsc --p tsconfig.json",
+    "typescript": "yarn run clean && yarn run tsc",
+    "watch": "yarn run tsc -w --preserveWatchOutput"
   },
   "husky": {
     "hooks": {
