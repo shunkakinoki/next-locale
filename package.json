@@ -18,7 +18,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn run clean && yarn run typescript && yarn run webpacks",
+    "build": "yarn run clean && yarn run typescript && yarn run webpack",
     "check": "yarn run depcheck && yarn run lint && yarn run release:check",
     "clean": "yarn run clean:dist && yarn run clean:tsbuildinfo",
     "clean:dist": "rimraf dist",
