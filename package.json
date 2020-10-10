@@ -8,6 +8,12 @@
   },
   "license": "MIT",
   "author": "Shun Kakinoki",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "check": "yarn run depcheck && yarn run lint && yarn run release:check",
     "fix": "yarn run jsonsort:fix && yarn run sort-package-json:fix && yarn run prettier:fix",
@@ -27,6 +33,13 @@
     "hooks": {
       "prepare-commit-msg": "exec < /dev/tty && git-cz --hook || true"
     }
+  },
+  "peerDependencies": {
+    "next": ">= 9.5.5",
+    "react": ">= 16.13.1"
+  },
+  "dependencies": {
+    "typescript": "^4.0.3"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
