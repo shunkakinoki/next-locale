@@ -24,6 +24,9 @@ jobs:
       - run: |
           yarn install --frozen-lockfile
       - run: |
+          yarn run typescript
+      - run: |
           yarn run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
