@@ -24,7 +24,7 @@ jobs:
       - run: |
           yarn install --frozen-lockfile
       - run: |
-          yarn run typescript
+          yarn run build
       - run: |
           yarn run release
         env:
