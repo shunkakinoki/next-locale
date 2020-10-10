@@ -1,0 +1,7 @@
+name: next-locale
+root: ~/ghq/github.com/next-locale/next-locale
+attach: true
+windows:
+  - zsh: shell
+  - zsh: shell
+  - zsh: shell
