@@ -36,9 +36,11 @@
     "sort-package-json:check": "sort-package-json 'package.json' --check",
     "sort-package-json:fix": "sort-package-json 'package.json'",
     "tsc": "tsc --p tsconfig.json",
-    "typescript": "yarn run clean && yarn run tsc",
-    "watch": "yarn run tsc -w --preserveWatchOutput",
-    "webpack": "webpack --config webpack.config.js"
+    "typescript": "yarn run tsc",
+    "typescript:watch": "yarn run tsc -w --preserveWatchOutput",
+    "webpack": "webpack --config webpack.config.js",
+    "webpack:watch": "webpack --config webpack.config.js --watch",
+    "watch": "yarn run typescript:watch && yarn run webpack:watch"
   },
   "husky": {
     "hooks": {

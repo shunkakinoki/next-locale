@@ -4,5 +4,11 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["locales"],
   "i18n-ally.namespace": true,
-  "i18n-ally.sourceLanguage": "en"
+  "i18n-ally.sourceLanguage": "en",
+  "terminal.integrated.env.linux": {
+    "ZSH_INIT_COMMAND": "mux start next-locale"
+  },
+  "terminal.integrated.env.osx": {
+    "ZSH_INIT_COMMAND": "mux start next-locale"
+  }
 }

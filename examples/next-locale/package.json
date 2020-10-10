@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/react": "^16.9.51",
     "next": "^9.5.5",
+    "next-locale": "link:../../",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
