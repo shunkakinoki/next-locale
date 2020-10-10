@@ -38,9 +38,9 @@
     "tsc": "tsc --p tsconfig.json",
     "typescript": "yarn run tsc",
     "typescript:watch": "yarn run tsc -w --preserveWatchOutput",
+    "watch": "yarn run typescript:watch && yarn run webpack:watch",
     "webpack": "webpack --config webpack.config.js",
-    "webpack:watch": "webpack --config webpack.config.js --watch",
-    "watch": "yarn run typescript:watch && yarn run webpack:watch"
+    "webpack:watch": "webpack --config webpack.config.js --watch"
   },
   "husky": {
     "hooks": {
