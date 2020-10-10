@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/next-locale/next-locale/compare/v1.5.0...v1.5.1) (2020-10-10)
+
+### Performance Improvements
+
+- ⚡️ ini concurrently watch ([c1a56db](https://github.com/next-locale/next-locale/commit/c1a56dbfa43d0cce3aaf2d778601881eb31a6a1d))
+
 # [1.5.0](https://github.com/next-locale/next-locale/compare/v1.4.0...v1.5.0) (2020-10-10)
 
 ### Features
