@@ -49,6 +49,7 @@
     "git-cz": "^4.7.1",
     "husky": "^4.3.0",
     "json-sort-cli": "^1.15.27",
+    "next": "^9.5.5",
     "npm-check-updates": "^9.0.2",
     "prettier": "^2.1.1",
     "semantic-release": "^17.1.1",
