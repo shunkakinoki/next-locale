@@ -1,13 +1,22 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 
-export default function Index(props) {
+export interface Props {
+  locale: string;
+  locales: string[];
+}
+
+const Index = ({
+  locale,
+  locales,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
   return (
     <>
       <p id="gssp">gssp page</p>
-      <p id="props">{JSON.stringify(props)}</p>
+      <p id="props">{JSON.stringify({locale, locales})}</p>
       <p id="router-locale">{router.locale}</p>
       <p id="router-locales">{JSON.stringify(router.locales)}</p>
       <p id="router-query">{JSON.stringify(router.query)}</p>
@@ -19,9 +28,12 @@ export default function Index(props) {
       <br />
     </>
   );
-}
+};
 
-export const getServerSideProps = ({locale, locales}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  locale,
+  locales,
+}) => {
   return {
     props: {
       locale,
@@ -29,3 +41,5 @@ export const getServerSideProps = ({locale, locales}) => {
     },
   };
 };
+
+export default Index;

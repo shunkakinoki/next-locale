@@ -1,13 +1,25 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import {ParsedUrlQuery} from "querystring";
 
-export default function Slug(props) {
+export interface Props {
+  params: ParsedUrlQuery;
+  locale: string;
+  locales: string[];
+}
+
+const Slug = ({
+  params,
+  locale,
+  locales,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
 
   return (
     <>
       <p id="gssp">gssp page</p>
-      <p id="props">{JSON.stringify(props)}</p>
+      <p id="props">{JSON.stringify({params, locale, locales})}</p>
       <p id="router-locale">{router.locale}</p>
       <p id="router-locales">{JSON.stringify(router.locales)}</p>
       <p id="router-query">{JSON.stringify(router.query)}</p>
@@ -19,9 +31,13 @@ export default function Slug(props) {
       <br />
     </>
   );
-}
+};
 
-export const getServerSideProps = ({params, locale, locales}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  params,
+  locale,
+  locales,
+}) => {
   return {
     props: {
       params,
@@ -30,3 +46,5 @@ export const getServerSideProps = ({params, locale, locales}) => {
     },
   };
 };
+
+export default Slug;

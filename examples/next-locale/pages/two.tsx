@@ -1,7 +1,8 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {NextPageContext} from "next";
 
-export default function Two(props) {
+export default function Two(props: NextPageContext) {
   const router = useRouter();
 
   return (
@@ -20,12 +21,3 @@ export default function Two(props) {
     </>
   );
 }
-
-export const getServerSideProps = ({locale, locales}) => {
-  return {
-    props: {
-      locale,
-      locales,
-    },
-  };
-};

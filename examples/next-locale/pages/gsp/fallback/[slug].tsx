@@ -1,7 +1,19 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import {GetStaticProps, InferGetStaticPropsType} from "next";
+import {ParsedUrlQuery} from "querystring";
 
-export default function Slug(props) {
+export interface Props {
+  params: ParsedUrlQuery;
+  locale: string;
+  locales: string[];
+}
+
+const Slug = ({
+  params,
+  locale,
+  locales,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
 
   if (router.isFallback) return "Loading...";
@@ -9,7 +21,7 @@ export default function Slug(props) {
   return (
     <>
       <p id="gsp">gsp page</p>
-      <p id="props">{JSON.stringify(props)}</p>
+      <p id="props">{JSON.stringify({params, locale, locales})}</p>
       <p id="router-locale">{router.locale}</p>
       <p id="router-locales">{JSON.stringify(router.locales)}</p>
       <p id="router-query">{JSON.stringify(router.query)}</p>
@@ -21,9 +33,13 @@ export default function Slug(props) {
       <br />
     </>
   );
-}
+};
 
-export const getStaticProps = ({params, locale, locales}) => {
+export const getStaticProps: GetStaticProps<Props> = async ({
+  params,
+  locale,
+  locales,
+}) => {
   return {
     props: {
       params,
@@ -41,3 +57,5 @@ export const getStaticPaths = () => {
     fallback: true,
   };
 };
+
+export default Slug;
