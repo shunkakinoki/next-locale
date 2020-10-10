@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/next-locale/next-locale/compare/v1.1.0...v1.2.0) (2020-10-10)
+
+### Features
+
+- 🎸 ini locales w/ use translation ([52686c8](https://github.com/next-locale/next-locale/commit/52686c8bdc70755f6ae8fede80e7308cd39f448b))
+
 # [1.1.0](https://github.com/next-locale/next-locale/compare/v1.0.0...v1.1.0) (2020-10-10)
 
 ### Features
