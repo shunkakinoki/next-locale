@@ -1,3 +1,1 @@
-export default () => {
-  console.log("Hello World");
-};
+export {default as useTranslation} from "./useTranslation";

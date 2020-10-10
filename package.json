@@ -14,6 +14,9 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "next-locale": "./dist/cli.js"
+  },
   "scripts": {
     "check": "yarn run depcheck && yarn run lint && yarn run release:check",
     "clean": "yarn run clean:dist && yarn run clean:tsbuildinfo",
