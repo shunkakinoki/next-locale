@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import * as React from "react";
 
 export interface Props {
   locale: string;
