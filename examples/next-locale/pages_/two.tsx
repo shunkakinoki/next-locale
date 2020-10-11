@@ -2,12 +2,15 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {NextPageContext} from "next";
 import * as React from "react";
+import {useTranslation} from "next-locale";
 
 export default function Two(props: NextPageContext) {
   const router = useRouter();
+  const {t} = useTranslation();
 
   return (
     <>
+      <p>{t("two:two")}</p>
       <p id="two">two page</p>
       <p id="props">{JSON.stringify(props)}</p>
       <p id="router-locale">{router.locale}</p>
