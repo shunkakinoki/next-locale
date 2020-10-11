@@ -10,7 +10,7 @@ let debug: boolean = false;
 var myArgs = process.argv.slice(2);
 
 switch (myArgs[0]) {
-  case "--help":
+  case "--debug":
     console.log("Debug mode on");
     debug = true;
     break;
