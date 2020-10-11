@@ -98,10 +98,121 @@ function isNextInternal(pagePath: string): boolean {
   );
 }
 
+function hasExportName(data: string, name: string) {
+  return data.match(
+    new RegExp(`export (const|var|let|async function|function) ${name}`),
+  );
+}
+
+function specialMethod(name: string, lang: string) {
+  return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: '${lang}' })`;
+}
+
+function exportAllFromPage(prefix: string, page: string, lang: string) {
+  const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g;
+  const pageData = fs
+    .readFileSync(page)
+    .toString("utf8")
+    .replace(clearCommentsRgx, "");
+
+  const isGetStaticProps = hasExportName(pageData, "getStaticProps");
+  const isGetStaticPaths = hasExportName(pageData, "getStaticPaths");
+  const isGetServerSideProps = hasExportName(pageData, "getServerSideProps");
+  const hasSomeSpecialMethod =
+    isGetStaticProps || isGetStaticPaths || isGetServerSideProps;
+
+  const exports = `
+${isGetStaticProps ? specialMethod("getStaticProps", lang) : ""}
+${isGetStaticPaths ? specialMethod("getStaticPaths", lang) : ""}
+${isGetServerSideProps ? specialMethod("getServerSideProps", lang) : ""}
+`;
+
+  return {hasSomeSpecialMethod, exports};
+}
+
+function getPageTemplate(
+  prefix: string,
+  page: string,
+  lang: string,
+  namespaces: string[],
+) {
+  const {hasSomeSpecialMethod, exports} = exportAllFromPage(prefix, page, lang);
+
+  return `// @ts-nocheck
+import I18nProvider from 'next-translate/I18nProvider'
+import React from 'react'
+import C${
+    hasSomeSpecialMethod ? ", * as _rest" : ""
+  } from '${prefix}/${clearPageExt(page)}'
+${namespaces
+  .map(
+    (ns, i) =>
+      `import ns${i} from '${prefix}/${localesPath}/${lang}/${ns}.json'`,
+  )
+  .join("\n")}
+
+const namespaces = { ${namespaces
+    .map((ns, i) => `'${ns}': ns${i}`)
+    .join(", ")} }
+
+export default function Page(p){
+  return (
+    <I18nProvider
+      namespaces={namespaces}
+    >
+      <C {...p} />
+    </I18nProvider>
+  )
+}
+
+Page = Object.assign(Page, { ...C })
+
+${exports}
+`;
+}
+
+function buildPageLocale({
+  prefix,
+  pagePath,
+  namespaces,
+  lang,
+  path,
+}: {
+  prefix: string;
+  pagePath: string;
+  namespaces: string[];
+  lang: string;
+  path: string;
+}) {
+  const finalPath = pagePath.replace(currentPagesDir, path);
+  const template = getPageTemplate(prefix, pagePath, lang, namespaces);
+  const [filename] = finalPath.split("/").reverse();
+  const dirs = finalPath.replace(`/${filename}`, "");
+  let finalFile = finalPath
+    .replace(/(\.tsx|\.ts|\.mdx)$/, ".js")
+    .replace(/\/index\/index\....?$/, "/index.js");
+
+  fs.mkdirSync(dirs, {recursive: true});
+  fs.writeFileSync(finalFile, template);
+}
+
 /* Build page for all locales */
 function buildPageInAllLocales(pagePath: string, namespaces: string[]) {
+  let prefix = pagePath
+    .split("/")
+    .map(() => "..")
+    .join("/");
+  let rootPrefix = prefix.replace("/..", "");
+
   if (isNextInternal(pagePath)) {
     fs.copyFileSync(pagePath, pagePath.replace(currentPagesDir, finalPagesDir));
     return;
   }
+  buildPageLocale({
+    namespaces,
+    pagePath,
+    path: finalPagesDir,
+    prefix: rootPrefix,
+    lang: "en",
+  });
 }
