@@ -4,6 +4,7 @@ ignores:
     "commitizen",
     "git-cz",
     "next",
+    "react-dom",
     "typescript",
     "webpack-cli",
   ]
