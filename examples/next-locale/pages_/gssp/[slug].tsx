@@ -2,6 +2,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {ParsedUrlQuery} from "querystring";
+import * as React from "react";
 
 export interface Props {
   params: ParsedUrlQuery;

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {NextPageContext} from "next";
+import * as React from "react";
 
 export default function Index(props: NextPageContext): JSX.Element {
   const router = useRouter();
