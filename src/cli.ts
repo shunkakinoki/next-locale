@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import rimraf from "rimraf";
+import glob from "glob";
 
 const i18nFile = path.resolve(process.cwd(), "i18n.json");
 
@@ -46,3 +47,9 @@ if (!fs.existsSync(currentPagesDir)) {
   console.warn(`Please put currentPagesDir at root.`);
   process.exit(1);
 }
+
+/* Add all pages to array */
+const parsedDir = currentPagesDir.replace(/\\/g, "/");
+const files = glob.sync(parsedDir + "/**/*");
+
+console.log(files);
