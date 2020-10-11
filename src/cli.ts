@@ -40,3 +40,9 @@ console.log(
 );
 
 rimraf(finalPagesDir, () => {});
+
+/* Check for currentPagesDir */
+if (!fs.existsSync(currentPagesDir)) {
+  console.warn(`Please put currentPagesDir at root.`);
+  process.exit(1);
+}
