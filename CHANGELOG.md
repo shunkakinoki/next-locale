@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/next-locale/next-locale/compare/v1.8.0...v1.9.0) (2020-10-11)
+
+### Features
+
+- 🎸 ini i18n cli tsconfig ([47e55d0](https://github.com/next-locale/next-locale/commit/47e55d09af0d58a428ceb0c55547d4c7fd04dc73))
+- 🎸 ini i18n provider ([33bd3cf](https://github.com/next-locale/next-locale/commit/33bd3cf9cf4db0849306e10a3d5e992bce992458))
+- 🎸 ini next-translate build ([c52fbf5](https://github.com/next-locale/next-locale/commit/c52fbf5728225eeecf91a3e6aa9afb272d36ebe6))
+
+### Performance Improvements
+
+- ⚡️ ini rimraf mkdir ([ca71625](https://github.com/next-locale/next-locale/commit/ca71625d16b54fbaad93590f7caa455b0deeaa5f))
+- ⚡️ refactor react import ([e381d43](https://github.com/next-locale/next-locale/commit/e381d43ad6907255024916d46de0ecfa3b74c70b))
+
 # [1.8.0](https://github.com/next-locale/next-locale/compare/v1.7.0...v1.8.0) (2020-10-11)
 
 ### Features
