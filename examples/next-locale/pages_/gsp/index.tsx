@@ -2,6 +2,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
 import * as React from "react";
+import {useTranslation} from "next-locale";
 
 export interface Props {
   locale: string;
@@ -13,9 +14,11 @@ const Index = ({
   locales,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+  const {t} = useTranslation();
 
   return (
     <>
+      <p>{t("index:index")}</p>
       <p id="gsp">gsp page</p>
       <p id="props">{JSON.stringify({locale, locales})}</p>
       <p id="router-locale">{router.locale}</p>

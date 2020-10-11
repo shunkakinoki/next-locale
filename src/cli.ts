@@ -5,6 +5,19 @@ import glob from "glob";
 
 const i18nFile = path.resolve(process.cwd(), "i18n.json");
 
+let debug: boolean = false;
+
+var myArgs = process.argv.slice(2);
+
+switch (myArgs[0]) {
+  case "--debug":
+    console.log("Debug mode on");
+    debug = true;
+    break;
+  default:
+    console.log("Building with next-locale...");
+}
+
 /* Check for i18n.json */
 if (!fs.existsSync(i18nFile)) {
   console.warn(`Please put i18n.json at the root.`);
@@ -58,7 +71,7 @@ try {
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
 const allPages = glob.sync(parsedDir + "/**/*.*");
 
-function clearPageExt(page: string) {
+function clearPageExt(page: string): string {
   const rgx = /(\/index\.jsx)|(\/index\.js)|(\/index\.tsx)|(\/index\.ts)|(\/index\.mdx)|(\.jsx)|(\.js)|(\.tsx)|(\.ts)|(\.mdx)/gm;
   return page.replace(rgx, "");
 }
@@ -85,7 +98,7 @@ allPages.forEach(async page => {
 
   const namespaces = await getPageNamespaces(pageId);
 
-  console.log(page, namespaces);
+  console.log(pageId, namespaces);
   buildPageInAllLocales(page, namespaces);
 });
 
@@ -98,17 +111,26 @@ function isNextInternal(pagePath: string): boolean {
   );
 }
 
-function hasExportName(data: string, name: string) {
+/* Check if page has a particular export name */
+function hasExportName(data: string, name: string): RegExpMatchArray | null {
   return data.match(
     new RegExp(`export (const|var|let|async function|function) ${name}`),
   );
 }
 
-function specialMethod(name: string, lang: string) {
-  return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
+/* Export special next.js method */
+function specialMethod(name: string, lang: string): string {
+  return `\nexport const ${name} = ctx => _rest.${name}({...ctx, lang: "${lang}"});`;
 }
 
-function exportAllFromPage(page: string, lang: string) {
+/* Export all from each page */
+function exportAllFromPage(
+  page: string,
+  lang: string,
+): {
+  hasSomeSpecialMethod: RegExpMatchArray | null;
+  exports: string;
+} {
   const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g;
   const pageData = fs
     .readFileSync(page)
@@ -121,21 +143,31 @@ function exportAllFromPage(page: string, lang: string) {
   const hasSomeSpecialMethod =
     isGetStaticProps || isGetStaticPaths || isGetServerSideProps;
 
-  const exports = `
-${isGetStaticProps ? specialMethod("getStaticProps", lang) : ""}
-${isGetStaticPaths ? specialMethod("getStaticPaths", lang) : ""}
-${isGetServerSideProps ? specialMethod("getServerSideProps", lang) : ""}
-`;
+  let exports: string = "";
+
+  if (isGetStaticPaths) {
+    exports += specialMethod("getStaticPaths", lang);
+  }
+  if (isGetStaticProps) {
+    exports += specialMethod("getStaticProps", lang);
+  }
+  if (isGetServerSideProps) {
+    exports += specialMethod("getServerSideProps", lang);
+  }
+  if (exports !== "") {
+    exports += "\n";
+  }
 
   return {hasSomeSpecialMethod, exports};
 }
 
+/* Get page template */
 function getPageTemplate(
   prefix: string,
   page: string,
   lang: string,
   namespaces: string[],
-) {
+): string {
   const {hasSomeSpecialMethod, exports} = exportAllFromPage(page, lang);
 
   return `// @ts-nocheck
@@ -143,7 +175,7 @@ import {I18nProvider} from "next-locale";
 import React from "react";
 import C${
     hasSomeSpecialMethod ? ", * as _rest" : ""
-  } from "${prefix}/${clearPageExt(page)}"
+  } from "${prefix}/${clearPageExt(page)}";
 ${namespaces
   .map(
     (ns, i) =>
@@ -151,25 +183,19 @@ ${namespaces
   )
   .join("\n")}
 
-const namespaces = { ${namespaces
-    .map((ns, i) => `"${ns}": ns${i}`)
-    .join(", ")} }
-
-export default function Page(p){
+const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
+${exports}
+export default function Page(p) {
   return (
-    <I18nProvider
-      lang="${lang}"
-      namespaces={namespaces}
-    >
+    <I18nProvider${debug ? " debug" : ""} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
-  )
+  );
 }
-
-${exports}
 `;
 }
 
+/* Build page for locale */
 function buildPageLocale({
   prefix,
   pagePath,
@@ -182,7 +208,7 @@ function buildPageLocale({
   namespaces: string[];
   lang: string;
   path: string;
-}) {
+}): void {
   const finalPath = pagePath.replace(currentPagesDir, path);
   const template = getPageTemplate(prefix, pagePath, lang, namespaces);
   const [filename] = finalPath.split("/").reverse();
@@ -193,7 +219,7 @@ function buildPageLocale({
 }
 
 /* Build page for all locales */
-function buildPageInAllLocales(pagePath: string, namespaces: string[]) {
+function buildPageInAllLocales(pagePath: string, namespaces: string[]): void {
   let prefix = pagePath
     .split("/")
     .map(() => "..")

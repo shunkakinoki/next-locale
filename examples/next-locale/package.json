@@ -7,10 +7,10 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "@types/react": "^16.9.51",
+    "@types/react": "link:../../node_modules/@types/react",
     "next": "^9.5.5",
     "next-locale": "link:../../",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "link:../../node_modules/react",
+    "react-dom": "link:../../node_modules/react-dom"
   }
 }
