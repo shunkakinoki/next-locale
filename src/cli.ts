@@ -69,7 +69,7 @@ try {
 
 /* Add all pages to array */
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
-const allPages = glob.sync(parsedDir + "/**/*.*");
+const allPages = glob.sync(parsedDir + "/**/*.*").sort();
 
 function clearPageExt(page: string): string {
   const rgx = /(\/index\.jsx)|(\/index\.js)|(\/index\.tsx)|(\/index\.ts)|(\/index\.mdx)|(\.jsx)|(\.js)|(\.tsx)|(\.ts)|(\.mdx)/gm;
