@@ -71,7 +71,7 @@ try {
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
 const allPages = glob.sync(parsedDir + "/**/*.*");
 
-function clearPageExt(page: string) {
+function clearPageExt(page: string): string {
   const rgx = /(\/index\.jsx)|(\/index\.js)|(\/index\.tsx)|(\/index\.ts)|(\/index\.mdx)|(\.jsx)|(\.js)|(\.tsx)|(\.ts)|(\.mdx)/gm;
   return page.replace(rgx, "");
 }
@@ -112,19 +112,25 @@ function isNextInternal(pagePath: string): boolean {
 }
 
 /* Check if page has a particular export name */
-function hasExportName(data: string, name: string) {
+function hasExportName(data: string, name: string): RegExpMatchArray | null {
   return data.match(
     new RegExp(`export (const|var|let|async function|function) ${name}`),
   );
 }
 
 /* Export special next.js method */
-function specialMethod(name: string, lang: string) {
+function specialMethod(name: string, lang: string): string {
   return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
 }
 
 /* Export all from each page */
-function exportAllFromPage(page: string, lang: string) {
+function exportAllFromPage(
+  page: string,
+  lang: string,
+): {
+  hasSomeSpecialMethod: RegExpMatchArray | null;
+  exports: string;
+} {
   const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g;
   const pageData = fs
     .readFileSync(page)
@@ -152,7 +158,7 @@ function getPageTemplate(
   page: string,
   lang: string,
   namespaces: string[],
-) {
+): string {
   const {hasSomeSpecialMethod, exports} = exportAllFromPage(page, lang);
 
   return `// @ts-nocheck
@@ -172,7 +178,7 @@ const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
 
 export default function Page(p) {
   return (
-    <I18nProvider ${debug ? "debug" : ""} namespaces={namespaces}>
+    <I18nProvider${debug ? " debug" : ""} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
   );
@@ -195,7 +201,7 @@ function buildPageLocale({
   namespaces: string[];
   lang: string;
   path: string;
-}) {
+}): void {
   const finalPath = pagePath.replace(currentPagesDir, path);
   const template = getPageTemplate(prefix, pagePath, lang, namespaces);
   const [filename] = finalPath.split("/").reverse();
@@ -206,7 +212,7 @@ function buildPageLocale({
 }
 
 /* Build page for all locales */
-function buildPageInAllLocales(pagePath: string, namespaces: string[]) {
+function buildPageInAllLocales(pagePath: string, namespaces: string[]): void {
   let prefix = pagePath
     .split("/")
     .map(() => "..")
