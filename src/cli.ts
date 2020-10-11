@@ -15,7 +15,7 @@ switch (myArgs[0]) {
     debug = true;
     break;
   default:
-    console.log("Sorry, that is not something I know how to do.");
+    console.log("Building with next-locale...");
 }
 
 /* Check for i18n.json */
