@@ -146,6 +146,7 @@ ${isGetServerSideProps ? specialMethod("getServerSideProps", lang) : ""}
   return {hasSomeSpecialMethod, exports};
 }
 
+/* Get page template */
 function getPageTemplate(
   prefix: string,
   page: string,
