@@ -120,7 +120,7 @@ function hasExportName(data: string, name: string): RegExpMatchArray | null {
 
 /* Export special next.js method */
 function specialMethod(name: string, lang: string): string {
-  return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
+  return `\nexport const ${name} = ctx => _rest.${name}({...ctx, lang: "${lang}"});`;
 }
 
 /* Export all from each page */
@@ -143,11 +143,17 @@ function exportAllFromPage(
   const hasSomeSpecialMethod =
     isGetStaticProps || isGetStaticPaths || isGetServerSideProps;
 
-  const exports = `
-${isGetStaticProps ? specialMethod("getStaticProps", lang) : ""}
-${isGetStaticPaths ? specialMethod("getStaticPaths", lang) : ""}
-${isGetServerSideProps ? specialMethod("getServerSideProps", lang) : ""}
-`;
+  let exports: string = "";
+
+  if (isGetStaticPaths) {
+    exports += specialMethod("getStaticProps", lang);
+  }
+  if (isGetStaticProps) {
+    exports += specialMethod("getStaticPaths", lang);
+  }
+  if (isGetServerSideProps) {
+    exports += specialMethod("getServerSideProps", lang);
+  }
 
   return {hasSomeSpecialMethod, exports};
 }
@@ -182,9 +188,7 @@ export default function Page(p) {
       <C {...p} />
     </I18nProvider>
   );
-}
-
-${exports}
+}${exports}
 `;
 }
 

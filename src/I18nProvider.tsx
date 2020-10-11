@@ -3,7 +3,7 @@ import I18nContext from "./context";
 
 export interface Props {
   children: React.ReactNode;
-  namespaces: {[key: string]: number};
+  namespaces: {[key: string]: {[key: string]: string}};
   debug?: true;
 }
 
