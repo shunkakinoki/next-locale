@@ -105,7 +105,7 @@ function hasExportName(data: string, name: string) {
 }
 
 function specialMethod(name: string, lang: string) {
-  return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: '${lang}' })`;
+  return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
 }
 
 function exportAllFromPage(prefix: string, page: string, lang: string) {
@@ -139,29 +139,25 @@ function getPageTemplate(
   const {hasSomeSpecialMethod, exports} = exportAllFromPage(prefix, page, lang);
 
   return `// @ts-nocheck
-import I18nProvider from 'next-translate/I18nProvider'
-import React from 'react'
+import {I18nProvider} from "next-locale";
+import React from "react";
 import C${
     hasSomeSpecialMethod ? ", * as _rest" : ""
-  } from '${prefix}/${clearPageExt(page)}'
+  } from "${prefix}/${clearPageExt(page)}"
 ${namespaces
   .map(
     (ns, i) =>
-      `import ns${i} from '${prefix}/${localesPath}/${lang}/${ns}.json'`,
+      `import ns${i} from "${prefix}/${localesPath}/${lang}/${ns}.json";`,
   )
   .join("\n")}
 
 const namespaces = { ${namespaces
-    .map((ns, i) => `'${ns}': ns${i}`)
+    .map((ns, i) => `"${ns}": ns${i}`)
     .join(", ")} }
 
 export default function Page(p){
   return (
-    <I18nProvider
-      namespaces={namespaces}
-    >
       <C {...p} />
-    </I18nProvider>
   )
 }
 
@@ -188,12 +184,9 @@ function buildPageLocale({
   const template = getPageTemplate(prefix, pagePath, lang, namespaces);
   const [filename] = finalPath.split("/").reverse();
   const dirs = finalPath.replace(`/${filename}`, "");
-  let finalFile = finalPath
-    .replace(/(\.tsx|\.ts|\.mdx)$/, ".js")
-    .replace(/\/index\/index\....?$/, "/index.js");
 
   fs.mkdirSync(dirs, {recursive: true});
-  fs.writeFileSync(finalFile, template);
+  fs.writeFileSync(finalPath, template);
 }
 
 /* Build page for all locales */
