@@ -1,3 +1,18 @@
+# [1.10.0](https://github.com/next-locale/next-locale/compare/v1.9.0...v1.10.0) (2020-10-11)
+
+### Features
+
+- 🎸 ini i18n provider example useTranslation ([3dea26b](https://github.com/next-locale/next-locale/commit/3dea26b6ea0a5405090565e566e662e09a21200d))
+
+### Performance Improvements
+
+- ⚡️ ini gsp gssp next-locale useTranslation ([1009876](https://github.com/next-locale/next-locale/commit/1009876421b46f6b7e4fb0370f4c3fc2dfc39211))
+- ⚡️ ini i18n Provider ([d4de1b8](https://github.com/next-locale/next-locale/commit/d4de1b8113e3be8bc975ef5bbcf5ab5425456fc2))
+- ⚡️ ini one two i18n locales ([40681c6](https://github.com/next-locale/next-locale/commit/40681c60e45b3b13ce7cf452452715029a5576a3))
+- ⚡️ prettier page template ([4f87f41](https://github.com/next-locale/next-locale/commit/4f87f4170bcadc2dd59897e8617ab73ec6ca6f8e))
+- ⚡️ refactor cli debug ([52070d1](https://github.com/next-locale/next-locale/commit/52070d19281dc7c505d7e89907a52e35dc0726ee))
+- ⚡️ refactor custom method export ([648b18c](https://github.com/next-locale/next-locale/commit/648b18c3eeb9b858db9985cb9f618c41f0156a4a))
+
 # [1.9.0](https://github.com/next-locale/next-locale/compare/v1.8.0...v1.9.0) (2020-10-11)
 
 ### Features
