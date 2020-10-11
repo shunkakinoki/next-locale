@@ -46,6 +46,14 @@ if (!fs.existsSync(currentPagesDir)) {
   process.exit(1);
 }
 
+/* Clean up finalPagesDir */
+rimraf.sync(finalPagesDir);
+
+/* Try mkdir finalPagesDir */
+try {
+  fs.mkdirSync(finalPagesDir);
+} catch (e) {}
+
 /* Add all pages to array */
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
 const allPages = glob.sync(parsedDir + "/**/*.*");
