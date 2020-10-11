@@ -146,13 +146,16 @@ function exportAllFromPage(
   let exports: string = "";
 
   if (isGetStaticPaths) {
-    exports += specialMethod("getStaticProps", lang);
+    exports += specialMethod("getStaticPaths", lang);
   }
   if (isGetStaticProps) {
-    exports += specialMethod("getStaticPaths", lang);
+    exports += specialMethod("getStaticProps", lang);
   }
   if (isGetServerSideProps) {
     exports += specialMethod("getServerSideProps", lang);
+  }
+  if (exports !== "") {
+    exports += "\n";
   }
 
   return {hasSomeSpecialMethod, exports};
@@ -181,14 +184,14 @@ ${namespaces
   .join("\n")}
 
 const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
-
+${exports}
 export default function Page(p) {
   return (
     <I18nProvider${debug ? " debug" : ""} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
   );
-}${exports}
+}
 `;
 }
 

@@ -15,11 +15,11 @@ const Slug = ({
   params,
   locale,
   locales,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element => {
   const router = useRouter();
   const {t} = useTranslation();
 
-  if (router.isFallback) return "Loading...";
+  if (router.isFallback) return <p>Loading...</p>;
 
   return (
     <>
