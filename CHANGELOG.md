@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/next-locale/next-locale/compare/v1.6.0...v1.7.0) (2020-10-11)
+
+### Features
+
+- 🎸 ini i18n provider ([9becfa9](https://github.com/next-locale/next-locale/commit/9becfa94991cb0c650d8bc14e53742591f5404e4))
+
 # [1.6.0](https://github.com/next-locale/next-locale/compare/v1.5.1...v1.6.0) (2020-10-11)
 
 ### Features
