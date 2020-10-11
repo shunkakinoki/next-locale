@@ -108,7 +108,7 @@ function specialMethod(name: string, lang: string) {
   return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
 }
 
-function exportAllFromPage(prefix: string, page: string, lang: string) {
+function exportAllFromPage(page: string, lang: string) {
   const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g;
   const pageData = fs
     .readFileSync(page)
@@ -136,7 +136,7 @@ function getPageTemplate(
   lang: string,
   namespaces: string[],
 ) {
-  const {hasSomeSpecialMethod, exports} = exportAllFromPage(prefix, page, lang);
+  const {hasSomeSpecialMethod, exports} = exportAllFromPage(page, lang);
 
   return `// @ts-nocheck
 import {I18nProvider} from "next-locale";
@@ -157,11 +157,14 @@ const namespaces = { ${namespaces
 
 export default function Page(p){
   return (
+    <I18nProvider
+      lang="${lang}"
+      namespaces={namespaces}
+    >
       <C {...p} />
+    </I18nProvider>
   )
 }
-
-Page = Object.assign(Page, { ...C })
 
 ${exports}
 `;
