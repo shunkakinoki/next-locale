@@ -50,6 +50,41 @@ if (!fs.existsSync(currentPagesDir)) {
 
 /* Add all pages to array */
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
-const files = glob.sync(parsedDir + "/**/*");
+const allPages = glob.sync(parsedDir + "/**/*.*");
 
-console.log(files);
+console.log(allPages);
+
+/* Create final dir */
+try {
+  fs.mkdirSync(finalPagesDir);
+} catch (e) {}
+
+function clearPageExt(page: string) {
+  const rgx = /(\/index\.jsx)|(\/index\.js)|(\/index\.tsx)|(\/index\.ts)|(\/index\.mdx)|(\.jsx)|(\.js)|(\.tsx)|(\.ts)|(\.mdx)/gm;
+  return page.replace(rgx, "");
+}
+
+/* Get namespace for a page */
+function getPageNamespaces(pageId: string): string[] {
+  //@ts-ignore
+  const allNamespace = pages["*"];
+  //@ts-ignore
+  const pageNamespace = pages[pageId] ?? null;
+
+  const namespaces = pageNamespace
+    ? allNamespace.concat(pageNamespace)
+    : allNamespace;
+
+  return namespaces;
+}
+
+/* Build namespaces for each page */
+allPages.forEach(async page => {
+  const pageId =
+    clearPageExt(page.replace(currentPagesDir, "")).replace(/\/index$/, "") ||
+    "/";
+
+  const namespaces = await getPageNamespaces(pageId);
+
+  console.log(page, namespaces);
+});
