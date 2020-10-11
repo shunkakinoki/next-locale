@@ -2,12 +2,15 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {NextPageContext} from "next";
 import * as React from "react";
+import {useTranslation} from "next-locale";
 
 export default function Index(props: NextPageContext): JSX.Element {
   const router = useRouter();
+  const {t} = useTranslation();
 
   return (
     <>
+      <p>{t("index:index")}</p>
       <p id="index">index page</p>
       <p id="props">{JSON.stringify(props)}</p>
       <p id="router-locale">{router.locale}</p>
