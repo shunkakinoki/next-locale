@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import rimraf from "rimraf";
 
 const i18nFile = path.resolve(process.cwd(), "i18n.json");
 
@@ -37,3 +38,5 @@ console.log(
   localesPath,
   pages,
 );
+
+rimraf(finalPagesDir, () => {});
