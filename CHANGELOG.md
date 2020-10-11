@@ -1,3 +1,11 @@
+# [1.8.0](https://github.com/next-locale/next-locale/compare/v1.7.0...v1.8.0) (2020-10-11)
+
+### Features
+
+- 🎸 build page locale ([219a471](https://github.com/next-locale/next-locale/commit/219a4713ac0f02d2b91449979d242f8c4bf1204b))
+- 🎸 ini all pages ([2ab6370](https://github.com/next-locale/next-locale/commit/2ab63703346e6f7ce51d3c3579c53a7b8396741c))
+- 🎸 ini build namespaces ([3a683b8](https://github.com/next-locale/next-locale/commit/3a683b82b4023b2a0c743be8b1de78696be24d56))
+
 # [1.7.0](https://github.com/next-locale/next-locale/compare/v1.6.0...v1.7.0) (2020-10-11)
 
 ### Features
