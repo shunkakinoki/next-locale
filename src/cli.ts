@@ -85,7 +85,7 @@ allPages.forEach(async page => {
 
   const namespaces = await getPageNamespaces(pageId);
 
-  console.log(page, namespaces);
+  console.log(pageId, namespaces);
   buildPageInAllLocales(page, namespaces);
 });
 
@@ -98,6 +98,7 @@ function isNextInternal(pagePath: string): boolean {
   );
 }
 
+/* Check if page has a particular export name */
 function hasExportName(data: string, name: string) {
   return data.match(
     new RegExp(`export (const|var|let|async function|function) ${name}`),
