@@ -5,6 +5,19 @@ import glob from "glob";
 
 const i18nFile = path.resolve(process.cwd(), "i18n.json");
 
+let debug: boolean = false;
+
+var myArgs = process.argv.slice(2);
+
+switch (myArgs[0]) {
+  case "--help":
+    console.log("Debug mode on");
+    debug = true;
+    break;
+  default:
+    console.log("Sorry, that is not something I know how to do.");
+}
+
 /* Check for i18n.json */
 if (!fs.existsSync(i18nFile)) {
   console.warn(`Please put i18n.json at the root.`);
@@ -105,10 +118,12 @@ function hasExportName(data: string, name: string) {
   );
 }
 
+/* Export special next.js method */
 function specialMethod(name: string, lang: string) {
   return `export const ${name} = ctx => _rest.${name}({ ...ctx, lang: "${lang}" })`;
 }
 
+/* Export all from each page */
 function exportAllFromPage(page: string, lang: string) {
   const clearCommentsRgx = /\/\*[\s\S]*?\*\/|\/\/.*/g;
   const pageData = fs
@@ -144,7 +159,7 @@ import {I18nProvider} from "next-locale";
 import React from "react";
 import C${
     hasSomeSpecialMethod ? ", * as _rest" : ""
-  } from "${prefix}/${clearPageExt(page)}"
+  } from "${prefix}/${clearPageExt(page)}";
 ${namespaces
   .map(
     (ns, i) =>
@@ -152,25 +167,21 @@ ${namespaces
   )
   .join("\n")}
 
-const namespaces = { ${namespaces
-    .map((ns, i) => `"${ns}": ns${i}`)
-    .join(", ")} }
+const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
 
-export default function Page(p){
+export default function Page(p) {
   return (
-    <I18nProvider
-      lang="${lang}"
-      namespaces={namespaces}
-    >
+    <I18nProvider ${debug ? "debug" : ""} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
-  )
+  );
 }
 
 ${exports}
 `;
 }
 
+/* Build page for locale */
 function buildPageLocale({
   prefix,
   pagePath,
