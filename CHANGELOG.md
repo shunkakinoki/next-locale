@@ -1,3 +1,13 @@
+# [1.6.0](https://github.com/next-locale/next-locale/compare/v1.5.1...v1.6.0) (2020-10-11)
+
+### Features
+
+- 🎸 ini rimraf cli ([3bc9160](https://github.com/next-locale/next-locale/commit/3bc9160f0a6742b400e830f80994de5983f20501))
+
+### Performance Improvements
+
+- ⚡️ refacor pages\_ to pages dir ([4594157](https://github.com/next-locale/next-locale/commit/4594157d0f8399d900d3024b9d46f93a9ef472a8))
+
 ## [1.5.1](https://github.com/next-locale/next-locale/compare/v1.5.0...v1.5.1) (2020-10-10)
 
 ### Performance Improvements
