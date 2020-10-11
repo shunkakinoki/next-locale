@@ -40,8 +40,6 @@ console.log(
   pages,
 );
 
-rimraf(finalPagesDir, () => {});
-
 /* Check for currentPagesDir */
 if (!fs.existsSync(currentPagesDir)) {
   console.warn(`Please put currentPagesDir at root.`);
@@ -51,13 +49,6 @@ if (!fs.existsSync(currentPagesDir)) {
 /* Add all pages to array */
 const parsedDir = currentPagesDir.replace(/\\/g, "/");
 const allPages = glob.sync(parsedDir + "/**/*.*");
-
-console.log(allPages);
-
-/* Create final dir */
-try {
-  fs.mkdirSync(finalPagesDir);
-} catch (e) {}
 
 function clearPageExt(page: string) {
   const rgx = /(\/index\.jsx)|(\/index\.js)|(\/index\.tsx)|(\/index\.ts)|(\/index\.mdx)|(\.jsx)|(\.js)|(\.tsx)|(\.ts)|(\.mdx)/gm;
@@ -87,4 +78,22 @@ allPages.forEach(async page => {
   const namespaces = await getPageNamespaces(pageId);
 
   console.log(page, namespaces);
+  buildPageInAllLocales(page, namespaces);
 });
+
+/* Check if custom next page */
+function isNextInternal(pagePath: string): boolean {
+  return (
+    pagePath.startsWith(`${currentPagesDir}/_`) ||
+    pagePath.startsWith(`${currentPagesDir}/404.`) ||
+    pagePath.startsWith(`${currentPagesDir}/api/`)
+  );
+}
+
+/* Build page for all locales */
+function buildPageInAllLocales(pagePath: string, namespaces: string[]) {
+  if (isNextInternal(pagePath)) {
+    fs.copyFileSync(pagePath, pagePath.replace(currentPagesDir, finalPagesDir));
+    return;
+  }
+}
