@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
 import {ParsedUrlQuery} from "querystring";
 import * as React from "react";
+import {useTranslation} from "next-locale";
 
 export interface Props {
   params: ParsedUrlQuery;
@@ -16,11 +17,13 @@ const Slug = ({
   locales,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
+  const {t} = useTranslation();
 
   if (router.isFallback) return "Loading...";
 
   return (
     <>
+      <p>{t("index:index")}</p>
       <p id="gsp">gsp page</p>
       <p id="props">{JSON.stringify({params, locale, locales})}</p>
       <p id="router-locale">{router.locale}</p>
