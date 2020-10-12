@@ -1,3 +1,9 @@
+# [1.12.0](https://github.com/next-locale/next-locale/compare/v1.11.0...v1.12.0) (2020-10-12)
+
+### Features
+
+- 🎸 ini i18n locale ([a2d7916](https://github.com/next-locale/next-locale/commit/a2d79169422f9941cd1e1b14bd3cc5625ec0f6b7))
+
 # [1.11.0](https://github.com/next-locale/next-locale/compare/v1.10.2...v1.11.0) (2020-10-12)
 
 ### Features
