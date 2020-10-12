@@ -7,7 +7,9 @@ export interface Props {
   debug?: true;
 }
 
-const NsContext = React.createContext({});
+const NsContext = React.createContext<{[key: string]: {[key: string]: string}}>(
+  {},
+);
 
 export default function I18nProvider({namespaces, children, debug}: Props) {
   const ns = React.useContext(NsContext);
@@ -25,7 +27,7 @@ export default function I18nProvider({namespaces, children, debug}: Props) {
       );
     }
 
-    return i18nKey;
+    return allNamespaces[namespace][i18nKey];
   }
   return (
     <I18nContext.Provider value={{t}}>
