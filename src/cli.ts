@@ -119,14 +119,13 @@ function hasExportName(data: string, name: string): RegExpMatchArray | null {
 }
 
 /* Export special next.js method */
-function specialMethod(name: string, lang: string): string {
-  return `\nexport const ${name} = ctx => _rest.${name}({...ctx, lang: "${lang}"});`;
+function specialMethod(name: string): string {
+  return `\nexport const ${name} = ctx => _rest.${name}({...ctx});`;
 }
 
 /* Export all from each page */
 function exportAllFromPage(
   page: string,
-  lang: string,
 ): {
   hasSomeSpecialMethod: RegExpMatchArray | null;
   exports: string;
@@ -146,13 +145,13 @@ function exportAllFromPage(
   let exports: string = "";
 
   if (isGetStaticPaths) {
-    exports += specialMethod("getStaticPaths", lang);
+    exports += specialMethod("getStaticPaths");
   }
   if (isGetStaticProps) {
-    exports += specialMethod("getStaticProps", lang);
+    exports += specialMethod("getStaticProps");
   }
   if (isGetServerSideProps) {
-    exports += specialMethod("getServerSideProps", lang);
+    exports += specialMethod("getServerSideProps");
   }
   if (exports !== "") {
     exports += "\n";
@@ -165,29 +164,43 @@ function exportAllFromPage(
 function getPageTemplate(
   prefix: string,
   page: string,
-  lang: string,
   namespaces: string[],
 ): string {
-  const {hasSomeSpecialMethod, exports} = exportAllFromPage(page, lang);
+  const {hasSomeSpecialMethod, exports} = exportAllFromPage(page);
 
   return `// @ts-nocheck
+import {useRouter} from "next/router";
 import {I18nProvider} from "next-locale";
 import React from "react";
 import C${
     hasSomeSpecialMethod ? ", * as _rest" : ""
   } from "${prefix}/${clearPageExt(page)}";
-${namespaces
-  .map(
-    (ns, i) =>
-      `import ns${i} from "${prefix}/${localesPath}/${lang}/${ns}.json";`,
+${allLanguages
+  .map(lang =>
+    namespaces
+      .map(
+        (ns, i) =>
+          `import ${lang}${i} from "${prefix}/${localesPath}/${lang}/${ns}.json";`,
+      )
+      .join("\n"),
   )
   .join("\n")}
-
-const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
+const namespaces = {\n${allLanguages
+    .map(lang =>
+      namespaces.map(
+        (ns, i) => `${i === 0 ? `  ${lang}: {` : " "}${ns}: ${lang}${i}`,
+      ),
+    )
+    .join("},\n")}},\n};
 ${exports}
 export default function Page(p) {
+  const router = useRouter();
+  const {locale} = router;
+
   return (
-    <I18nProvider${debug ? " debug" : ""} namespaces={namespaces}>
+    <I18nProvider${
+      debug ? " debug" : ""
+    } locale={locale} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
   );
@@ -200,17 +213,15 @@ function buildPageLocale({
   prefix,
   pagePath,
   namespaces,
-  lang,
   path,
 }: {
   prefix: string;
   pagePath: string;
   namespaces: string[];
-  lang: string;
   path: string;
 }): void {
   const finalPath = pagePath.replace(currentPagesDir, path);
-  const template = getPageTemplate(prefix, pagePath, lang, namespaces);
+  const template = getPageTemplate(prefix, pagePath, namespaces);
   const [filename] = finalPath.split("/").reverse();
   const dirs = finalPath.replace(`/${filename}`, "");
 
@@ -235,6 +246,5 @@ function buildPageInAllLocales(pagePath: string, namespaces: string[]): void {
     pagePath,
     path: finalPagesDir,
     prefix: rootPrefix,
-    lang: "en",
   });
 }
