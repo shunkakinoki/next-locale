@@ -1,3 +1,6 @@
 {
-  "index": "Index"
+  "index": "Index",
+  "nested": {
+    "nested": "Nested"
+  }
 }
