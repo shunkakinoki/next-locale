@@ -11,6 +11,7 @@ export default function Index(props: NextPageContext): JSX.Element {
   return (
     <>
       <p>{t("index:index")}</p>
+      <p>{t("index:nested.nested")}</p>
       <p id="index">index page</p>
       <p id="props">{JSON.stringify(props)}</p>
       <p id="router-locale">{router.locale}</p>

@@ -27,7 +27,13 @@ export default function I18nProvider({namespaces, children, debug}: Props) {
       );
     }
 
-    return allNamespaces[namespace][i18nKey];
+    return (
+      allNamespaces[namespace][i18nKey] ||
+      allNamespaces[namespace][i18nKey.split(".")[0]][i18nKey.split(".")[1]] ||
+      allNamespaces[namespace][i18nKey.split(".")[0]][i18nKey.split(".")[1]][
+        i18nKey.split(".")[2]
+      ]
+    );
   }
   return (
     <I18nContext.Provider value={{t}}>
