@@ -1,3 +1,13 @@
+# [1.14.0](https://github.com/next-locale/next-locale/compare/v1.13.0...v1.14.0) (2020-10-12)
+
+### Features
+
+- 🎸 ini export lib ([9b8f783](https://github.com/next-locale/next-locale/commit/9b8f7832abd242dc18aab6da6bfa5852fecf447f))
+
+### Performance Improvements
+
+- ⚡️ refactor cli & prepublish ([79ff15a](https://github.com/next-locale/next-locale/commit/79ff15a3c97132e3079c4c51b289e080fceeead8))
+
 # [1.13.0](https://github.com/next-locale/next-locale/compare/v1.12.0...v1.13.0) (2020-10-12)
 
 ### Features
