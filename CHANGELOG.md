@@ -1,3 +1,9 @@
+# [1.13.0](https://github.com/next-locale/next-locale/compare/v1.12.0...v1.13.0) (2020-10-12)
+
+### Features
+
+- 🎸 ini i18n locale value reducer ([221f18b](https://github.com/next-locale/next-locale/commit/221f18b3d17ae48d2753b6f11a7342c02db411e6))
+
 # [1.12.0](https://github.com/next-locale/next-locale/compare/v1.11.0...v1.12.0) (2020-10-12)
 
 ### Features
