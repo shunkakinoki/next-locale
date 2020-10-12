@@ -31,7 +31,7 @@ export default function I18nProvider({
       );
     }
 
-    return JSON.stringify(allNamespaces[locale]);
+    return allNamespaces[locale][namespace][i18nKey];
   }
   return (
     <I18nContext.Provider value={{t}}>
