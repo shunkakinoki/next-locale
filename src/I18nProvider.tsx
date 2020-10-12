@@ -20,8 +20,10 @@ export default function I18nProvider({
   const allNamespaces = {...ns, ...namespaces};
 
   function t(key: string) {
-    const k = Array.isArray(key) ? key[0] : key;
-    const [namespace, i18nKey] = k.split(":");
+    const [namespace, i18nKey] = key.split(":");
+    const value = i18nKey
+      .split(".")
+      .reduce((val, key) => val[key] || {}, allNamespaces[locale][namespace]);
 
     if (debug) {
       console.log(
@@ -31,7 +33,7 @@ export default function I18nProvider({
       );
     }
 
-    return allNamespaces[locale][namespace][i18nKey];
+    return value;
   }
   return (
     <I18nContext.Provider value={{t}}>
