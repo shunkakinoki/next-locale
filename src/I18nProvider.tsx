@@ -19,7 +19,7 @@ export default function I18nProvider({
   const ns = React.useContext(NsContext);
   const allNamespaces = {...ns, ...namespaces};
 
-  function t(key = "") {
+  function t(key: string) {
     const k = Array.isArray(key) ? key[0] : key;
     const [namespace, i18nKey] = k.split(":");
 
