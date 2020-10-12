@@ -184,7 +184,13 @@ ${allLanguages
       .join("\n"),
   )
   .join("\n")}
-const namespaces = {${namespaces.map((ns, i) => `${ns}: ns${i}`).join(", ")}};
+const namespaces = {\n${allLanguages
+    .map(lang =>
+      namespaces.map(
+        (ns, i) => `${i === 0 ? `  ${lang}: {` : " "}${ns}: ${lang}${i}`,
+      ),
+    )
+    .join("},\n")}},\n};
 ${exports}
 export default function Page(p) {
   return (
