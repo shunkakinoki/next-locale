@@ -35,7 +35,7 @@
     "lint": "yarn run jsonsort:check && yarn run sort-package-json:check && yarn run prettier:check",
     "ncu:check": "ncu -p yarn",
     "ncu:upgrade": "ncu -u -p yarn",
-    "prepublish": "mv export/*.* .",
+    "prepublish": "cp export/*.* .",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "release": "semantic-release",

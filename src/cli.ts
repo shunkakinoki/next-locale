@@ -170,7 +170,7 @@ function getPageTemplate(
 
   return `// @ts-nocheck
 import {useRouter} from "next/router";
-import {I18nProvider} from "next-locale";
+import I18nProvider from "next-locale/I18nProvider";
 import React from "react";
 import C${
     hasSomeSpecialMethod ? ", * as _rest" : ""
