@@ -1,3 +1,9 @@
+## [1.10.1](https://github.com/next-locale/next-locale/compare/v1.10.0...v1.10.1) (2020-10-12)
+
+### Performance Improvements
+
+- ⚡️ ini cli sort ([b51fbfa](https://github.com/next-locale/next-locale/commit/b51fbfafff14e2c776b27d358fa9697ccdd07a54))
+
 # [1.10.0](https://github.com/next-locale/next-locale/compare/v1.9.0...v1.10.0) (2020-10-11)
 
 ### Features
