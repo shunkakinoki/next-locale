@@ -1,3 +1,11 @@
+## [1.10.2](https://github.com/next-locale/next-locale/compare/v1.10.1...v1.10.2) (2020-10-12)
+
+### Performance Improvements
+
+- ⚡️ ini nested key example ([f51f9d9](https://github.com/next-locale/next-locale/commit/f51f9d9d82f81898800b48a21b15cada17d450e9))
+- ⚡️ ini tmp nested ([9a40c45](https://github.com/next-locale/next-locale/commit/9a40c45b54662b742d383159fc46d082a35f4b5c))
+- ⚡️ refactor nested t ([0c1fa30](https://github.com/next-locale/next-locale/commit/0c1fa306c40edb238c17f11be9382df091c1efab))
+
 ## [1.10.1](https://github.com/next-locale/next-locale/compare/v1.10.0...v1.10.1) (2020-10-12)
 
 ### Performance Improvements
