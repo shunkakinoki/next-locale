@@ -3,15 +3,19 @@ import I18nContext from "./context";
 
 export interface Props {
   children: React.ReactNode;
-  namespaces: {[key: string]: {[key: string]: string}};
+  locale: string;
+  namespaces: any;
   debug?: true;
 }
 
-const NsContext = React.createContext<{[key: string]: {[key: string]: string}}>(
-  {},
-);
+const NsContext = React.createContext<any>({});
 
-export default function I18nProvider({namespaces, children, debug}: Props) {
+export default function I18nProvider({
+  namespaces,
+  locale,
+  children,
+  debug,
+}: Props) {
   const ns = React.useContext(NsContext);
   const allNamespaces = {...ns, ...namespaces};
 
@@ -27,7 +31,7 @@ export default function I18nProvider({namespaces, children, debug}: Props) {
       );
     }
 
-    return allNamespaces[namespace][i18nKey];
+    return JSON.stringify(allNamespaces[locale]);
   }
   return (
     <I18nContext.Provider value={{t}}>

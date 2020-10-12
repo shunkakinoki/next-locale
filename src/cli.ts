@@ -169,6 +169,7 @@ function getPageTemplate(
   const {hasSomeSpecialMethod, exports} = exportAllFromPage(page);
 
   return `// @ts-nocheck
+import {useRouter} from "next/router";
 import {I18nProvider} from "next-locale";
 import React from "react";
 import C${
@@ -193,8 +194,13 @@ const namespaces = {\n${allLanguages
     .join("},\n")}},\n};
 ${exports}
 export default function Page(p) {
+  const router = useRouter();
+  const {locale} = router;
+
   return (
-    <I18nProvider${debug ? " debug" : ""} namespaces={namespaces}>
+    <I18nProvider${
+      debug ? " debug" : ""
+    } locale={locale} namespaces={namespaces}>
       <C {...p} />
     </I18nProvider>
   );
