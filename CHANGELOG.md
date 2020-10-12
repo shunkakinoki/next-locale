@@ -1,3 +1,9 @@
+## [1.14.1](https://github.com/next-locale/next-locale/compare/v1.14.0...v1.14.1) (2020-10-12)
+
+### Performance Improvements
+
+- ⚡️ refactor export for use translation ([87756ae](https://github.com/next-locale/next-locale/commit/87756ae1b2960296f555f79d0cb7415e846ff2e7))
+
 # [1.14.0](https://github.com/next-locale/next-locale/compare/v1.13.0...v1.14.0) (2020-10-12)
 
 ### Features
