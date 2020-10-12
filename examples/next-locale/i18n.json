@@ -6,6 +6,12 @@
   "localesPath": "locales",
   "pages": {
     "*": ["index"],
+    "/gsp/fallback/[slug]": ["one"],
+    "/gsp/[slug]": ["one"],
+    "/gsp/no-fallback/[slug]": ["one"],
+    "/gsp": ["one"],
+    "/gssp/[slug]": ["one"],
+    "/gssp": ["one"],
     "/": ["one"],
     "/two": ["two"]
   }
