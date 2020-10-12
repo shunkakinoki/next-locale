@@ -1,3 +1,15 @@
+# [1.11.0](https://github.com/next-locale/next-locale/compare/v1.10.2...v1.11.0) (2020-10-12)
+
+### Features
+
+- 🎸 ini locale detection for I18nProvider ([3c240ed](https://github.com/next-locale/next-locale/commit/3c240ed3379842fb52810e6331a1891e36c08132))
+
+### Performance Improvements
+
+- ⚡️ ini const namespaces for lang ([93f123b](https://github.com/next-locale/next-locale/commit/93f123bdf0ff4240072aa5862771986365378992))
+- ⚡️ refactor all languages ([14cf201](https://github.com/next-locale/next-locale/commit/14cf201a3bfb5248810b8705a8b53b29c595f3eb))
+- ⚡️ refactor i18n keys ([b6f84e0](https://github.com/next-locale/next-locale/commit/b6f84e05aa2d0520efd02e6380872eeadd4be932))
+
 ## [1.10.2](https://github.com/next-locale/next-locale/compare/v1.10.1...v1.10.2) (2020-10-12)
 
 ### Performance Improvements
