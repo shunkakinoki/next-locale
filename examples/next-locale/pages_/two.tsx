@@ -2,7 +2,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {NextPageContext} from "next";
 import * as React from "react";
-import {useTranslation} from "next-locale";
+import useTranslation from "next-locale/useTranslation";
 
 export default function Two(props: NextPageContext) {
   const router = useRouter();

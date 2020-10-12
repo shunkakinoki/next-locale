@@ -2,7 +2,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {GetStaticProps, InferGetStaticPropsType} from "next";
 import * as React from "react";
-import {useTranslation} from "next-locale";
+import useTranslation from "next-locale/useTranslation";
 
 export interface Props {
   locale: string;

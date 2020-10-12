@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {ParsedUrlQuery} from "querystring";
 import * as React from "react";
-import {useTranslation} from "next-locale";
+import useTranslation from "next-locale/useTranslation";
 
 export interface Props {
   params: ParsedUrlQuery;
