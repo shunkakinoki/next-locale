@@ -15,7 +15,13 @@
     "next-locale": "./bin/next-locale.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "context.js",
+    "context.d.ts",
+    "I18nProvider.js",
+    "I18nProvider.d.ts",
+    "useTranslation.js",
+    "useTranslation.d.ts"
   ],
   "scripts": {
     "build": "yarn run clean && yarn run typescript && yarn run webpack",
@@ -31,6 +37,7 @@
     "ncu:upgrade": "ncu -u -p yarn",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
+    "prepublish": "cp export/*.* .",
     "release": "semantic-release",
     "release:check": "semantic-release -d",
     "sort-package-json:check": "sort-package-json 'package.json' --check",
